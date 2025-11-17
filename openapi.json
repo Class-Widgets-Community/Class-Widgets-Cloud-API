@@ -7,8 +7,8 @@
   },
   "tags": [],
   "paths": {
-    "/api/login": {
-      "get": {
+    "/api/auth/login": {
+      "post": {
         "summary": "login",
         "deprecated": false,
         "description": "",
@@ -23,9 +23,243 @@
                   "version": {
                     "type": "string"
                   }
+                }
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "token"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "token": "a8551f2e-0fed-41e2-a256-39bbfb8f53d2"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "error"
+                  ]
+                },
+                "example": {
+                  "status": "error",
+                  "error": "No permision."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "summary": "logout",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "error"
+                  ]
+                },
+                "example": {
+                  "status": "error",
+                  "error": "Token not found."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      }
+    },
+    "/api/noti/get": {
+      "get": {
+        "summary": "get_noti",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "data"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "示例 1",
+                    "value": {
+                      "status": "ok",
+                      "data": [
+                        "原强定年了无住。",
+                        "备我型自越往计。",
+                        "教认次等。"
+                      ]
+                    }
+                  },
+                  "2": {
+                    "summary": "示例 2",
+                    "value": {
+                      "status": "ok",
+                      "data": []
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      }
+    },
+    "/api/sche/get": {
+      "post": {
+        "summary": "get_schedule_by_date",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  }
                 },
                 "required": [
-                  "version"
+                  "time"
                 ]
               },
               "examples": {}
@@ -40,12 +274,90 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "token": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "schedule": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start_time": {
+                                "type": "number"
+                              },
+                              "end_time": {
+                                "type": "number"
+                              },
+                              "course": {
+                                "type": "string",
+                                "description": "is_break 为 false 时字段可为任意值\n"
+                              },
+                              "is_break": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "start_time",
+                              "end_time",
+                              "course",
+                              "is_break"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "schedule"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "schedule": [
+                      {
+                        "start_time": 1763301548,
+                        "end_time": 1763301548,
+                        "course": "称",
+                        "is_break": false
+                      },
+                      {
+                        "start_time": 1763301548,
+                        "end_time": 1763301548,
+                        "course": "",
+                        "is_break": true
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "token"
+                    "status",
+                    "error"
                   ]
                 }
               }
@@ -53,33 +365,33 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "auth": []
+          }
+        ]
       }
     },
-    "/api/logout": {
-      "get": {
-        "summary": "logout",
+    "/api/sche/get_next": {
+      "post": {
+        "summary": "get_next_courses_by_time",
         "deprecated": false,
         "description": "",
         "tags": [],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Your token",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": {}
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time"
+                ]
               },
               "examples": {}
             }
@@ -92,20 +404,268 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "schedule": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "start_time": {
+                                "type": "number",
+                                "description": "允许课程交叉"
+                              },
+                              "end_time": {
+                                "type": "number",
+                                "description": "endtime > start_time"
+                              },
+                              "course": {
+                                "type": "string",
+                                "description": "is_break 为 false 时字段可为任意值\n"
+                              },
+                              "is_break": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "start_time",
+                              "end_time",
+                              "course",
+                              "is_break"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "schedule"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "schedule": [
+                      {
+                        "start_time": 1763301630,
+                        "end_time": 1763301631,
+                        "course": "其",
+                        "is_break": false
+                      },
+                      {
+                        "start_time": 1763301632,
+                        "end_time": 1763301633,
+                        "course": "",
+                        "is_break": true
+                      },
+                      {
+                        "start_time": 1763301635,
+                        "end_time": 1763301636,
+                        "course": "到",
+                        "is_break": false
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "error"
+                  ]
                 }
               }
             },
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      }
+    },
+    "/api/sche/get_now": {
+      "post": {
+        "summary": "get_current_course",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time"
+                ]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "is_break": {
+                          "type": "boolean"
+                        },
+                        "course": {
+                          "type": "string",
+                          "description": "is_break 为真时可为任意值"
+                        }
+                      },
+                      "required": [
+                        "is_break",
+                        "course"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "示例 1",
+                    "value": {
+                      "status": "ok",
+                      "data": {
+                        "is_break": false,
+                        "course": "回"
+                      }
+                    }
+                  },
+                  "2": {
+                    "summary": "示例 2",
+                    "value": {
+                      "status": "ok",
+                      "data": {
+                        "is_break": true,
+                        "course": ""
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "error"
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "auth": []
+          }
+        ]
       }
     }
   },
   "components": {
-    "schemas": {},
-    "securitySchemes": {}
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "error"
+        ]
+      },
+      "ok base": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
   },
   "servers": [],
   "security": []
