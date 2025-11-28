@@ -56,6 +56,12 @@
                     "status",
                     "data"
                   ]
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "token": "a8551f2e-0fed-41e2-a256-39bbfb8f53d2"
+                  }
                 }
               }
             },
@@ -80,6 +86,10 @@
                     "status",
                     "error"
                   ]
+                },
+                "example": {
+                  "status": "error",
+                  "error": "No permision."
                 }
               }
             },
@@ -128,6 +138,10 @@
                     "status",
                     "error"
                   ]
+                },
+                "example": {
+                  "status": "error",
+                  "error": "Token not found."
                 }
               }
             },
@@ -170,6 +184,26 @@
                     "status",
                     "data"
                   ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "示例 1",
+                    "value": {
+                      "status": "ok",
+                      "data": [
+                        "原强定年了无住。",
+                        "备我型自越往计。",
+                        "教认次等。"
+                      ]
+                    }
+                  },
+                  "2": {
+                    "summary": "示例 2",
+                    "value": {
+                      "status": "ok",
+                      "data": []
+                    }
+                  }
                 }
               }
             },
@@ -262,6 +296,25 @@
                   "required": [
                     "status"
                   ]
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "schedule": [
+                      {
+                        "start_time": 1763301548,
+                        "end_time": 1763301548,
+                        "course": "称",
+                        "is_break": false
+                      },
+                      {
+                        "start_time": 1763301548,
+                        "end_time": 1763301548,
+                        "course": "",
+                        "is_break": true
+                      }
+                    ]
+                  }
                 }
               }
             },
@@ -356,6 +409,31 @@
                   "required": [
                     "status"
                   ]
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "schedule": [
+                      {
+                        "start_time": 1763301630,
+                        "end_time": 1763301631,
+                        "course": "其",
+                        "is_break": false
+                      },
+                      {
+                        "start_time": 1763301632,
+                        "end_time": 1763301633,
+                        "course": "",
+                        "is_break": true
+                      },
+                      {
+                        "start_time": 1763301635,
+                        "end_time": 1763301636,
+                        "course": "到",
+                        "is_break": false
+                      }
+                    ]
+                  }
                 }
               }
             },
@@ -429,6 +507,28 @@
                   "required": [
                     "status"
                   ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "示例 1",
+                    "value": {
+                      "status": "ok",
+                      "data": {
+                        "is_break": false,
+                        "course": "回"
+                      }
+                    }
+                  },
+                  "2": {
+                    "summary": "示例 2",
+                    "value": {
+                      "status": "ok",
+                      "data": {
+                        "is_break": true,
+                        "course": ""
+                      }
+                    }
+                  }
                 }
               }
             },
