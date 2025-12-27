@@ -96,7 +96,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "auth": []
+          }
+        ]
       }
     },
     "/api/auth/logout": {
@@ -613,5 +617,9 @@
     }
   },
   "servers": [],
-  "security": []
+  "security": [
+    {
+      "auth": []
+    }
+  ]
 }
