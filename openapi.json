@@ -24,8 +24,7 @@
                     "type": "string"
                   }
                 }
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -245,8 +244,7 @@
                 "required": [
                   "time"
                 ]
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -356,8 +354,7 @@
                 "required": [
                   "time"
                 ]
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -475,8 +472,7 @@
                 "required": [
                   "time"
                 ]
-              },
-              "examples": {}
+              }
             }
           }
         },
